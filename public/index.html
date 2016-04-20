@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>angular-fire-crud</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- https://brilliant-fire-6949.firebaseio.com/products -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-app="myApp">
+  <div class="panel panel-primary" ng-controller="ProductsCtrl">
+    <div class="panel-heading" style="font-size:large">
+      Product List
+    </div>
+
+    <form ng-submit="addFormSubmit()" ng-show="addFormShow">
+      <input type="text" ng-model="productName" placeholder="Name" />
+      <input type="text" ng-model="productCode" placeholder="Code" />
+      <input type="text" ng-model="description" placeholder="Description" />
+      <input type="text" ng-model="price" placeholder="Price" />
+      <input type="submit" value="Add Product" class="btn btn-default btn-success" />
+    </form>
+
+    <form ng-submit="editFormSubmit()" ng-show="editFormShow">
+      <input type="text" ng-model="productName" placeholder="Name" />
+      <input type="text" ng-model="productCode" placeholder="Code" />
+      <input type="text" ng-model="description" placeholder="Description" />
+      <input type="text" ng-model="price" placeholder="Price" />
+      <input type="submit" value="Edit Product" class="btn btn-default btn-warning" />
+    </form>
+    <div class="panel panel-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Product</td>
+            <td>Code</td>
+            <td>Description</td>
+            <td>Price</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="product in products">
+            <td>{{ product.productName}}</td>
+            <td>{{ product.productCode }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td>
+              <button class="btn btn-primary" ng-click="showProduct(product)" >Edit</button>&nbsp;
+              <button class="btn btn-danger" ng-click="deleteProduct(product)" >Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-success" ng-click="showForm()" ng-hide="addFormShow">+</button>
+      <button class="btn btn-warning" ng-click="hideForm()" ng-show="addFormShow">-</button>
+    </div>
+  </div>
+</body>
+</html>
